@@ -1,0 +1,4 @@
+export const EMAIL_CHANGED = 'EMAIL_CHANGED';
+export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
+export const UPDATE_STATE = 'UPDATE_STATE';
+export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
