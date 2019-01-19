@@ -51,8 +51,6 @@ export const getFavorites = (accountId, accessToken) => {
 }
 
 export const addToWatchlist = (accountId, marketId, accessToken) => {
-  const formData = new URLSearchParams();
-  formData.append('following', true);
 
   return fetch (`${host}/accounts/${accountId}/watchlist/${marketId}`,
     {
