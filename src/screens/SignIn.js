@@ -5,7 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
-  ActivityIndicator
+  ActivityIndicator,
+  StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -83,13 +84,11 @@ class SignIn extends Component {
   }
 
   renderBtnOrIndicator = () => {
-    console.log(`loading in renderBtnOrIndicator is ${this.props.loading}`);
     if (this.props.loading) {
       return <View style={styles.btnStyle}>
         <ActivityIndicator size="large" color="white"/>
       </View>;
     } else {
-      console.log("entered the else statement");
       return <TouchableOpacity
         style={styles.btnStyle}
         onPress={() => this.onSignInPressed()}
@@ -103,6 +102,7 @@ class SignIn extends Component {
   render() {
     return(
       <View style={styles.mainContainer}>
+        <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#cccccc"/>
         <View style={styles.labelContainer}>
           <Text style={styles.welcomeLabel}>{WELCOME_STRING}</Text>
         </View>
@@ -170,7 +170,7 @@ const styles = {
   mainContainer: {
     flex: 1,
     backgroundColor: 'white',
-    marginHorizontal: 35
+    paddingHorizontal: 35
   },
   labelContainer: {
     flex: 1,
