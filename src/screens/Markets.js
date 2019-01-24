@@ -9,8 +9,7 @@ import { MARKETS_TITLE, SEARCH_PLACEHOLDER_STRING } from '../utils/Strings';
 import {
   getMarketsAndFavorites,
   saveSearchResultForMarkets,
-  addToFavorites,
-  removeFromFavorites
+  addRemoveFromFavorites
 } from '../actions';
 
 
@@ -108,22 +107,20 @@ addRemoveFavorite = (item) => {
   if (item.isFavorite) {
     marketsSearchResult.find(e => e.id === item.id).isFavorite = false;
     markets.find(e => e.id === item.id).isFavorite = false;
-    newMarkets = markets.slice();
-    newMarketsSearchResults = marketsSearchResult.slice();
-    this.props.removeFromFavorites(newMarkets, newMarketsSearchResults);
   } else {
     marketsSearchResult.find(e => e.id === item.id).isFavorite = true;
     markets.find(e => e.id === item.id).isFavorite = true;
-    newMarkets = markets.slice();
-    newMarketsSearchResults = marketsSearchResult.slice();
-    this.props.addToFavorites(
-      newMarkets,
-      newMarketsSearchResults,
-      item.id,
-      accountId,
-      accessToken
-    );
   }
+  newMarkets = markets.slice();
+  newMarketsSearchResults = marketsSearchResult.slice();
+  this.props.addRemoveFromFavorites(
+    newMarkets,
+    newMarketsSearchResults,
+    item.id,
+    accountId,
+    accessToken,
+    item.isFavorite
+  );
 }
 
 
@@ -232,6 +229,5 @@ const styles = {
 export default connect(mapStateToProps, {
   getMarketsAndFavorites,
   saveSearchResultForMarkets,
-  addToFavorites,
-  removeFromFavorites
+  addRemoveFromFavorites
 })(Markets);

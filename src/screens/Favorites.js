@@ -6,7 +6,7 @@ import Toast from 'react-native-simple-toast';
 
 import { FAVORITES } from '../utils/Strings';
 
-import { removeFromFavorites } from '../actions';
+import { addRemoveFromFavorites } from '../actions';
 
 class Favorites extends Component {
 
@@ -38,9 +38,19 @@ class Favorites extends Component {
   removeFavorite = (item) => {
     let { markets, accountId, accessToken, marketsSearchResult } = this.props;
     let newMarkets = [];
+    let newMarketsSearchResults = [];
     markets.find(e => e.id === item.id).isFavorite = false;
+    marketsSearchResult.find(e => e.id === item.id).isFavorite = false;
     newMarkets = markets.slice();
-    this.props.removeFromFavorites(newMarkets, marketsSearchResult);
+    newMarketsSearchResults = marketsSearchResult.slice();
+    this.props.addRemoveFromFavorites(
+      newMarkets,
+      newMarketsSearchResults,
+      item.id,
+      accountId,
+      accessToken,
+      item.isFavorite
+    );
   }
 
   convertValueToString = (value) => {
@@ -140,4 +150,4 @@ const styles = {
   },
 }
 
-export default connect(mapStateToProps, {removeFromFavorites})(Favorites);
+export default connect(mapStateToProps, {addRemoveFromFavorites})(Favorites);

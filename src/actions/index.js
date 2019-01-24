@@ -21,7 +21,7 @@ import {
   getUserInfo,
   getFavorites,
   searchMarkets,
-  addToWatchlist
+  addRemoveFromWatchlist
 } from '../utils/API';
 
 
@@ -144,28 +144,27 @@ export const saveSearchResultForMarkets = (results) => {
   return({ type: SAVE_MARKETS_SEARCH_RESULTS, payload: results});
 }
 
-export const addToFavorites = (
+export const addRemoveFromFavorites = (
   markets,
   marketsSearchResult,
   marketId,
   accountId,
-  accessToken
+  accessToken,
+  isFollowing
 ) => {
   return(dispatch) => {
-    addToWatchlist(accountId, marketId, accessToken)
+    addRemoveFromWatchlist(accountId, marketId, accessToken, isFollowing)
       .then((responseJSON) => {
         if (responseJSON.code) {
           Toast.show("An error occurred, please try again.");
         } else {
-          Toast.show("Successfully added a market to Favorites");
+          if (isFollowing) {
+            Toast.show("Successfully added a market to Favorites");
+          } else {
+            Toast.show("Successfully removed a market from Favorites");
+          }
           dispatch({ type: ADD_REMOVE_MARKET_TO_FAVORITES, payload: {markets, marketsSearchResult}});
         }
       });
   };
-}
-
-//removes a market from favorites only locally
-export const removeFromFavorites = (markets, marketsSearchResult) => {
-  Toast.show("Successfully removed a market from Favorites");
-  return({ type: ADD_REMOVE_MARKET_TO_FAVORITES, payload: {markets, marketsSearchResult}});
 }

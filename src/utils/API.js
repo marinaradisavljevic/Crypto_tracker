@@ -49,7 +49,7 @@ export const getFavorites = (accountId, accessToken) => {
 }).then((res) => res.json());
 }
 
-export const addToWatchlist = (accountId, marketId, accessToken) => {
+export const addRemoveFromWatchlist = (accountId, marketId, accessToken, isFollowing) => {
 
   return fetch (`${host}/accounts/${accountId}/watchlist/${marketId}`,
     {
@@ -59,7 +59,7 @@ export const addToWatchlist = (accountId, marketId, accessToken) => {
         'Accept': 'application/json',
         "Content-Type": "application/json",
     },
-    body: JSON.stringify({'following': true })
+    body: JSON.stringify({'following': isFollowing })
   }
 ).then((res) => res.json());
 }
